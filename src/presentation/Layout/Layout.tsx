@@ -30,7 +30,7 @@ const Layout: React.FC = () => {
                             Encuesta
                         </Link>
                         <Link
-                            to="/results"
+                            to="/graphics"
                             className="text-gray-600 hover:text-emerald-600 transition-colors text-sm font-medium"
                         >
                             Graficas
@@ -45,39 +45,17 @@ const Layout: React.FC = () => {
                 <Outlet />
             </main>
             <footer className="bg-gray-900 text-white py-12">
-                <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-4 gap-8">
-                    <div>
-                        <div className="flex items-center space-x-2 mb-4">
-                            <Brain className="h-6 w-6 text-emerald-400" />
-                            <span className="text-xl font-bold">MentalSurvey</span>
-                        </div>
-                        <p className="text-gray-400 text-sm">
-                            Evaluaciones de salud mental impulsadas por IA para mejorar tu bienestar.
-                        </p>
+                <div className="max-w-6xl mx-auto px-4 border-t border-gray-800 pt-8 flex flex-col items-center space-y-4">
+                    <div className="flex items-center space-x-2">
+                        <Brain className="h-6 w-6 text-emerald-400" />
+                        <span className="text-xl font-bold">MentalSurvey</span>
                     </div>
-                    {[
-                        { title: 'Producto', links: ['Cómo Funciona', 'Tecnología', 'Privacidad'] },
-                        { title: 'Soporte', links: ['Centro de Ayuda', 'Contacto', 'FAQ'] },
-                        { title: 'Legal', links: ['Términos de Uso', 'Política de Privacidad', 'Cookies'] },
-                    ].map(section => (
-                        <div key={section.title}>
-                            <h4 className="font-semibold mb-4">{section.title}</h4>
-                            <ul className="space-y-2 text-sm text-gray-400">
-                                {section.links.map(link => (
-                                    <li key={link}>
-                                        <Link to="#" className="hover:text-white transition-colors">
-                                            {link}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-                </div>
-                <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-                    <p>&copy; {new Date().getFullYear()} MentalSurvey. Todos los derechos reservados.</p>
+                    <p className="text-sm text-gray-400">
+                        &copy; {new Date().getFullYear()} MentalSurvey. Todos los derechos reservados.
+                    </p>
                 </div>
             </footer>
+
         </div>
     );
 };

@@ -130,7 +130,7 @@ const LandingPage: React.FC = () => {
                     Da el primer paso hacia un mejor entendimiento de tu salud mental. Es gratuito, rápido y confidencial.
                 </p>
                 <Link
-                    to="/survey"
+                    to="/form"
                     className="inline-flex items-center bg-white text-emerald-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-full transition"
                 >
                     Iniciar Evaluación Gratuita

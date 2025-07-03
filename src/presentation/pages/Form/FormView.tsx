@@ -138,7 +138,7 @@ const SocialMediaSurveyPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-green-50 py-10">
+        <div className="min-h-screen  py-10">
             <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
                 <h1 className="text-2xl font-semibold mb-6 text-center text-green-700">
                     Encuesta de Redes Sociales

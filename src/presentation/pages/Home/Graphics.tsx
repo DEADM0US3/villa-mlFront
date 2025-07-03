@@ -3,15 +3,15 @@ import AcademicPerformanceBaseInAddiction from './components/AcademicPerformance
 import AgeClusterAddiction from './components/AgeClusterAddiction';
 import AgePredictionGraphic from './components/AgePredictionGraphic';
 import AverageUseBaseInAddiction from './components/AverageUseBaseInAddiction';
-import AverageUseAgeCluster from './components/AvarageUseAgeCluster';
 import { useChartData } from './HomeView';
+import AverageUseAgeCluster from './components/AvarageUseAgeCluster';
 
 const Graphics: React.FC = () => {
     const { data, loading } = useChartData();
 
     if (loading) {
         return (
-            <div className="text-center p-10 text-gray-700">
+            <div className="text-center p-10 text-green-700">
                 Cargando datos...
             </div>
         );
@@ -28,7 +28,7 @@ const Graphics: React.FC = () => {
     return (
         <div className="max-w-7xl mx-auto p-6">
             <section className="flex flex-col gap-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                <h2 className="text-2xl font-bold text-green-800 mb-4">
                     Gráficas de adicción a redes sociales
                 </h2>
 
@@ -36,21 +36,21 @@ const Graphics: React.FC = () => {
                     {/* Primera columna de gráficos */}
                     <div className="flex-1 space-y-8">
                         <div className="bg-white rounded-2xl shadow p-6">
-                            <h3 className="text-xl font-semibold mb-4 text-gray-700">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 🎓 Rendimiento académico vs Nivel de adicción
                             </h3>
                             <AcademicPerformanceBaseInAddiction data={data.academic_vs_addiction} />
                         </div>
 
                         <div className="bg-white rounded-2xl shadow p-6">
-                            <h3 className="text-xl font-semibold mb-4 text-gray-700">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 🧠 Agrupación por edad y nivel de adicción
                             </h3>
                             <AgeClusterAddiction data={data.age_clusters} />
                         </div>
 
                         <div className="bg-white rounded-2xl shadow p-6">
-                            <h3 className="text-xl font-semibold mb-4 text-gray-700">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 🔮 Predicción de edad con base en uso
                             </h3>
                             <AgePredictionGraphic data={data.age_prediction} />
@@ -60,14 +60,14 @@ const Graphics: React.FC = () => {
                     {/* Segunda columna de gráficos */}
                     <div className="flex-1 space-y-8">
                         <div className="bg-white rounded-2xl shadow p-6">
-                            <h3 className="text-xl font-semibold mb-4 text-gray-700">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 📱 Uso promedio diario por nivel de adicción
                             </h3>
                             <AverageUseBaseInAddiction data={data.average_use} />
                         </div>
 
                         <div className="bg-white rounded-2xl shadow p-6">
-                            <h3 className="text-xl font-semibold mb-4 text-gray-700">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 👥 Edad vs Uso promedio agrupado
                             </h3>
                             <AverageUseAgeCluster data={data.average_use_age_cluster} />

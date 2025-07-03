@@ -3,7 +3,7 @@ import FormResponseFromStorage from './components/FormResponseFromStorage';
 
 const ResultsPage: React.FC = () => {
     return (
-        <div className="min-h-screen bg-green-50 py-12">
+        <div className="min-h-screen  py-12">
             <div className="max-w-7xl mx-auto px-6">
                 {/* Encabezado extendido */}
                 <header className="mb-10 text-center md:text-left">
