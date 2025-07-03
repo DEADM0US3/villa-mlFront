@@ -1,13 +1,18 @@
 import React from 'react';
-import {Navigate, type RouteObject, useRoutes} from 'react-router-dom';
-import {HomeRoutes} from "./pages/Home/HomeRoutes.tsx";
+import { Navigate, type RouteObject, useRoutes } from 'react-router-dom';
+import { HomeRoutes } from "./pages/Home/HomeRoutes.tsx";
+import { FormRoutes } from './pages/Form/FormRoutes.tsx';
+import Layout from './Layout/Layout.tsx';
+
 
 const AppRoutes: React.FC = () => {
     const routes: RouteObject[] = [
         {
             path: '/',
-            children:[
-                ...HomeRoutes
+            element: <Layout />,
+            children: [
+                ...HomeRoutes,
+                ...FormRoutes
             ]
         },
         {

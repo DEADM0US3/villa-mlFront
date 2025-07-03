@@ -8,6 +8,8 @@ import SocialMediaSurveyForm from './components/SocialMediaSurveyForm';
 import axios from 'axios';
 import FormResponseFromStorage from "./components/FormResponseFromStorage.tsx";
 
+const API_URL = import.meta.env.VITE_API_URL as string;
+
 export interface ChartData {
     academic_vs_addiction: { Academic_Level: string; addicted_score: number }[];
     age_clusters: { age_cluster: number; addicted_score: number }[];
@@ -21,7 +23,7 @@ export const useChartData = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get<ChartData>('http://localhost:8000/data/chart')  // cambia la URL si usas otra base
+        axios.get<ChartData>(`${API_URL}/data/chart`)
             .then((res) => setData(res.data))
             .catch((err) => console.error("Error fetching chart data", err))
             .finally(() => setLoading(false));
@@ -29,8 +31,6 @@ export const useChartData = () => {
 
     return { data, loading };
 };
-
-
 
 
 const HomeView: React.FC = () => {
@@ -72,7 +72,7 @@ const HomeView: React.FC = () => {
                                 Gráficas de predicción en base al formulario
                             </h2>
                             <>
-                                <FormResponseFromStorage/>
+                                <FormResponseFromStorage />
                             </>
                         </section>
 
@@ -86,35 +86,35 @@ const HomeView: React.FC = () => {
                                     <h2 className="text-xl font-semibold mb-4 text-gray-700">
                                         🎓 Rendimiento académico vs Nivel de adicción
                                     </h2>
-                                    <AcademicPerformanceBaseInAddiction data={data.academic_vs_addiction}/>
+                                    <AcademicPerformanceBaseInAddiction data={data.academic_vs_addiction} />
                                 </div>
 
                                 <div className="bg-white rounded-2xl shadow p-6">
                                     <h2 className="text-xl font-semibold mb-4 text-gray-700">
                                         🧠 Agrupación por edad y nivel de adicción
                                     </h2>
-                                    <AgeClusterAddiction data={data.age_clusters}/>
+                                    <AgeClusterAddiction data={data.age_clusters} />
                                 </div>
 
                                 <div className="bg-white rounded-2xl shadow p-6">
                                     <h2 className="text-xl font-semibold mb-4 text-gray-700">
                                         🔮 Predicción de edad con base en uso
                                     </h2>
-                                    <AgePredictionGraphic data={data.age_prediction}/>
+                                    <AgePredictionGraphic data={data.age_prediction} />
                                 </div>
 
                                 <div className="bg-white rounded-2xl shadow p-6">
                                     <h2 className="text-xl font-semibold mb-4 text-gray-700">
                                         📱 Uso promedio diario por nivel de adicción
                                     </h2>
-                                    <AverageUseBaseInAddiction data={data.average_use}/>
+                                    <AverageUseBaseInAddiction data={data.average_use} />
                                 </div>
 
                                 <div className="bg-white rounded-2xl shadow p-6 md:col-span-2">
                                     <h2 className="text-xl font-semibold mb-4 text-gray-700">
                                         👥 Edad vs Uso promedio agrupado por nivel de adicción
                                     </h2>
-                                    <AverageUseAgeCluster data={data.average_use_age_cluster}/>
+                                    <AverageUseAgeCluster data={data.average_use_age_cluster} />
                                 </div>
                             </div>
 
@@ -125,7 +125,7 @@ const HomeView: React.FC = () => {
                     {showForm && (
                         <div className="bg-white rounded-2xl shadow p-6 fixed left-20 top-20">
                             <h2 className="text-xl font-bold mb-4 text-gray-800">📝 Formulario de ingreso</h2>
-                            <SocialMediaSurveyForm/>
+                            <SocialMediaSurveyForm />
                         </div>
                     )}
                 </div>

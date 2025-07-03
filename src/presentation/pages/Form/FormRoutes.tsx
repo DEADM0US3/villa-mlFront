@@ -1,13 +1,13 @@
-import type {RouteObject} from "react-router-dom";
-import FormView from "@/presentation/pages/Form/FormView.tsx";
+import type { RouteObject } from "react-router-dom";
+import FormView from "./FormView";
 
 export const FormRoutes: RouteObject[] = [
     {
-        path: "users",
-        children:[
+        path: "form",
+        children: [
             {
                 index: true,
-                element: <FormView/>
+                element: <FormView />
             }
         ]
     }

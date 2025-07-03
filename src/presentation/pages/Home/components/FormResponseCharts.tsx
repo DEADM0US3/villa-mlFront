@@ -21,7 +21,7 @@ interface FormResponseProps {
 }
 
 const FormResponseCharts: React.FC<FormResponseProps> = ({ data }) => {
-    const { addicted_score, mental_health_score, recommendations, comparison_data } = data;
+    const { addicted_score, mental_health_score, recommendations } = data;
 
     // 1. Gauge para nivel de adicción
     const addictionGaugeOption = {
