@@ -33,7 +33,7 @@ const SocialMediaSurveyPage: React.FC = () => {
     ];
 
     const [currentStep, setCurrentStep] = useState(0);
-    const [formData, setFormData] = useState<Record<string, string>>(Object.fromEntries(fields.map((f) => [f.id, ""])) as Record<string, string>);
+    const [responseMessage, setResponseMessage] = useState<string | null>(null); const [formData, setFormData] = useState<Record<string, string>>(Object.fromEntries(fields.map((f) => [f.id, ""])) as Record<string, string>);
     formData["country"] = "Mexico";
     formData["model_name"] = "formulario_redes";
 
@@ -64,24 +64,42 @@ const SocialMediaSurveyPage: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (steps[currentStep].fields.every((id) => formData[id]?.trim())) {
-            setLoading(true);
-            setErrorMessage(null);
-            try {
-                const form = new FormData();
-                Object.entries(formData).forEach(([k, v]) => form.append(k, v));
-                const res = await axios.post(`${API_URL}/form`, form);
-                console.log("Form submitted:", res.data);
-                navigate('/results');
-            } catch (err: any) {
-                setErrorMessage(err.response?.data?.detail || 'Error enviando formulario');
-            } finally {
-                setLoading(false);
-            }
-        } else {
+
+        // Validación de campos
+        if (!steps[currentStep].fields.every((id) => formData[id]?.trim())) {
             setErrorMessage("Por favor completa todos los campos antes de enviar.");
+            return;
+        }
+
+        setLoading(true);
+        setErrorMessage(null);
+        setResponseMessage(null);
+
+        try {
+            // Armo el FormData
+            const form = new FormData();
+            Object.entries(formData).forEach(([key, value]) => {
+                form.append(key, value);
+            });
+
+            // Llamada al backend (Axios detecta FormData y añade el Content-Type con boundary)
+            const res = await axios.post(`${API_URL}/form`, form);
+
+            // <-- Aquí guardas la respuesta para que /results la pueda leer
+            localStorage.setItem("surveyResult", JSON.stringify(res.data));
+
+            // Mensaje de éxito (si lo usas en tu UI)
+            setResponseMessage("Formulario enviado correctamente.");
+
+            // Rediriges a resultados
+            navigate("/results");
+        } catch (err: any) {
+            setErrorMessage(err.response?.data?.detail || "Error enviando formulario");
+        } finally {
+            setLoading(false);
         }
     };
+
 
     const isStepComplete = (index: number) => steps[index].fields.every((id) => formData[id]?.trim());
     const currentFields = fields.filter((f) => steps[currentStep].fields.includes(f.id));
