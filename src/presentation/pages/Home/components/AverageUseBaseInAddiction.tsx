@@ -5,6 +5,7 @@ interface Props {
 }
 
 const AverageUseBaseInAddiction: React.FC<Props> = ({ data }) => {
+
     const option = {
         xAxis: {
             type: 'category',
@@ -21,6 +22,12 @@ const AverageUseBaseInAddiction: React.FC<Props> = ({ data }) => {
                 data: data.map(d => d.addicted_score),
                 smooth: true,
                 itemStyle: { color: '#ef4444' }
+            },
+                        {
+                type: 'line',
+                data: data.map(d => d.addicted_score),
+                smooth: true,
+                itemStyle: { color: '#ea4444' }
             }
         ]
     };

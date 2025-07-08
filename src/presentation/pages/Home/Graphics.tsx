@@ -5,6 +5,11 @@ import AgePredictionGraphic from './components/AgePredictionGraphic';
 import AverageUseBaseInAddiction from './components/AverageUseBaseInAddiction';
 import { useChartData } from './HomeView';
 import AverageUseAgeCluster from './components/AvarageUseAgeCluster';
+import AvgUseperAge_Gender from './components/AvgUseperAge_Gender';
+import AvgAddperAge_Gender from './components/AvgAddperAge_Gender';
+import AvgAddSleep from './components/AvgAddSleep.tsx';
+import AvgMhUse from './components/AvgMhUse.tsx';
+import AvgMhAge from './AvgMhAge.tsx';
 
 const Graphics: React.FC = () => {
     const { data, loading } = useChartData();
@@ -55,6 +60,18 @@ const Graphics: React.FC = () => {
                             </h3>
                             <AgePredictionGraphic data={data.age_prediction} />
                         </div>
+                        <div className="bg-white rounded-2xl shadow p-6">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
+                                🔮 Predicción de adicción con base en sueño
+                            </h3>
+                            <AvgAddSleep data={data.average_addiction_sleep} />
+                        </div>
+                        <div className="bg-white rounded-2xl shadow p-6">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
+                                🔮 Relacion entre uso diario y salud mental
+                            </h3>
+                            <AvgMhUse data={data.average_mh_use} />
+                        </div>
                     </div>
 
                     {/* Segunda columna de gráficos */}
@@ -71,6 +88,27 @@ const Graphics: React.FC = () => {
                                 👥 Edad vs Uso promedio agrupado
                             </h3>
                             <AverageUseAgeCluster data={data.average_use_age_cluster} />
+                        </div>
+
+                        <div className="bg-white rounded-2xl shadow p-6">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
+                                👥 Relacion entre uso y edad por genero
+                            </h3>
+                            <AvgUseperAge_Gender data={data.average_use_age_gender} />
+                        </div>
+
+                        <div className="bg-white rounded-2xl shadow p-6">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
+                                👥 Predicción de adicción con base en edad por genero
+                            </h3>
+                            <AvgAddperAge_Gender data={data.average_addiction_age_gender} />
+                        </div>
+
+                        <div className="bg-white rounded-2xl shadow p-6">
+                            <h3 className="text-xl font-semibold mb-4 text-green-700">
+                                👥 Predicción de salud mental con base en edad
+                            </h3>
+                            <AvgMhAge data={data.average_mh_age} />
                         </div>
                     </div>
                 </div>
