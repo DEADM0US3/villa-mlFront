@@ -8,6 +8,7 @@ import SocialMediaSurveyForm from './components/SocialMediaSurveyForm';
 import axios from 'axios';
 import FormResponseFromStorage from "./components/FormResponseFromStorage.tsx";
 
+
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 export interface ChartData {
@@ -16,6 +17,11 @@ export interface ChartData {
     age_prediction: { Age: number; Predicted_Addiction: number }[];
     average_use: { Avg_Daily_Usage_Hours: number; addicted_score: number }[];
     average_use_age_cluster: { age_cluster: number; Avg_Daily_Usage_Hours: number }[];
+    average_use_age_gender: { Age: number; Gender: string, Avg_Daily_Usage_Hours: number }[];
+    average_addiction_age_gender: { Age: number; Gender: string, addicted_score: number }[];
+    average_addiction_sleep: { addicted_score: number, Sleep_Hours_Per_Night: number }[];
+    average_mh_age: { mental_health_score: number, Age: number }[];
+    average_mh_use: { mental_health_score: number, Avg_Daily_Usage_Hours: number }[];
 }
 
 export const useChartData = () => {
@@ -116,6 +122,7 @@ const HomeView: React.FC = () => {
                                     </h2>
                                     <AverageUseAgeCluster data={data.average_use_age_cluster} />
                                 </div>
+                                
                             </div>
 
                         </section>
