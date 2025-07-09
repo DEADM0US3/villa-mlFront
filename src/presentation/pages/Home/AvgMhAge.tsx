@@ -6,9 +6,14 @@ interface Props {
     Age: number;
     mental_health_score: number;
   }[];
+  user?: {
+    user_Age: number;
+    predicted_mh: number;
+    note: string;
+  };
 }
 
-const AvgMhAge: React.FC<Props> = ({ data }) => {
+const AvgMhAge: React.FC<Props> = ({ data, user }) => {
   if (!data || !Array.isArray(data) || data.length === 0) {
     return (
       <div className="text-center text-red-600 p-4">
@@ -18,6 +23,30 @@ const AvgMhAge: React.FC<Props> = ({ data }) => {
   }
 
   const sorted = [...data].sort((a, b) => a.Age - b.Age);
+  const ages = sorted.map((d) => d.Age);
+
+  const userIndex = user ? ages.indexOf(user.user_Age) : -1;
+
+  const userPoint =
+    user && userIndex !== -1
+      ? [
+          {
+            type: 'scatter',
+            name: 'Tú',
+            data: [[user.user_Age, user.predicted_mh]],
+            symbolSize: 14,
+            itemStyle: { color: 'green' },
+            label: {
+              show: true,
+              formatter: 'Tú',
+              position: 'top',
+            },
+            tooltip: {
+              formatter: user.note,
+            },
+          },
+        ]
+      : [];
 
   const option = {
     tooltip: {
@@ -28,7 +57,7 @@ const AvgMhAge: React.FC<Props> = ({ data }) => {
       name: 'Edad',
       nameLocation: 'middle',
       nameGap: 25,
-      data: sorted.map((d) => d.Age),
+      data: ages,
     },
     yAxis: {
       type: 'value',
@@ -52,6 +81,7 @@ const AvgMhAge: React.FC<Props> = ({ data }) => {
         symbol: 'circle',
         symbolSize: 6,
       },
+      ...userPoint,
     ],
   };
 

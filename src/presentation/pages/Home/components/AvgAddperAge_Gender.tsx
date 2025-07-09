@@ -7,9 +7,16 @@ interface Props {
     Gender: string;
     addicted_score: number;
   }[];
+  user?: {
+    user_age: number;
+    user_gender: string;
+    user_addicted_score: number;
+    group_average_addicted_score: number;
+    comparison: string;
+  };
 }
 
-const BarAddictionByAgeGender: React.FC<Props> = ({ data }) => {
+const BarAddictionByAgeGender: React.FC<Props> = ({ data, user }) => {
   if (!Array.isArray(data) || data.length === 0) {
     return <div className="text-red-600 text-center p-4">No hay datos disponibles.</div>;
   }
@@ -30,27 +37,52 @@ const BarAddictionByAgeGender: React.FC<Props> = ({ data }) => {
     };
   });
 
+  const xCategories = grouped.map(g => g.age);
+
+  const userXIndex = user ? xCategories.indexOf(user.user_age.toString()) : -1;
+
+  const userPoint =
+    user && userXIndex !== -1
+      ? [
+          {
+            type: 'scatter',
+            name: 'Tú',
+            data: [[userXIndex, user.user_addicted_score]],
+            symbolSize: 14,
+            itemStyle: { color: 'red' },
+            label: {
+              show: true,
+              formatter: 'Tú',
+              position: 'top',
+            },
+            tooltip: {
+              formatter: user.comparison,
+            },
+          },
+        ]
+      : [];
+
   const option = {
     tooltip: {
-      trigger: 'axis'
+      trigger: 'axis',
     },
     legend: {
       data: ['Hombres', 'Mujeres'],
-      top: 'top'
+      top: 'top',
     },
     xAxis: {
       type: 'category',
-      data: grouped.map(g => g.age),
+      data: xCategories,
       name: 'Edad',
       nameLocation: 'middle',
       nameGap: 30,
       axisLabel: {
-        rotate: 45
-      }
+        rotate: 45,
+      },
     },
     yAxis: {
       type: 'value',
-      name: 'Nivel de adicción'
+      name: 'Nivel de adicción',
     },
     series: [
       {
@@ -59,7 +91,7 @@ const BarAddictionByAgeGender: React.FC<Props> = ({ data }) => {
         data: grouped.map(g => g.male),
         emphasis: { focus: 'series' },
         animationDelay: idx => idx * 10,
-        itemStyle: { color: '#3B82F6' }
+        itemStyle: { color: '#3B82F6' },
       },
       {
         name: 'Mujeres',
@@ -67,11 +99,12 @@ const BarAddictionByAgeGender: React.FC<Props> = ({ data }) => {
         data: grouped.map(g => g.female),
         emphasis: { focus: 'series' },
         animationDelay: idx => idx * 10 + 100,
-        itemStyle: { color: '#EC4899' }
-      }
+        itemStyle: { color: '#EC4899' },
+      },
+      ...userPoint,
     ],
     animationEasing: 'elasticOut',
-    animationDelayUpdate: idx => idx * 5
+    animationDelayUpdate: idx => idx * 5,
   };
 
   return <ReactECharts option={option} style={{ height: 300 }} />;
