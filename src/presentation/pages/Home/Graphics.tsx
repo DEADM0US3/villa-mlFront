@@ -3,7 +3,7 @@ import AcademicPerformanceBaseInAddiction from './components/AcademicPerformance
 import AgeClusterAddiction from './components/AgeClusterAddiction';
 import AgePredictionGraphic from './components/AgePredictionGraphic';
 import AverageUseBaseInAddiction from './components/AverageUseBaseInAddiction';
-import { useChartData } from './HomeView';
+import { useChartData, useFullSurveyData } from './HomeView';
 import AverageUseAgeCluster from './components/AvarageUseAgeCluster';
 import AvgUseperAge_Gender from './components/AvgUseperAge_Gender';
 import AvgAddperAge_Gender from './components/AvgAddperAge_Gender';
@@ -13,9 +13,9 @@ import AvgMhAge from './AvgMhAge.tsx';
 import { useState } from 'react';
 
 const Graphics: React.FC = () => {
-    const { data, loading } = useChartData();
+    const { data, loading: loadingChart } = useChartData();
 
-     const [isOpen1, setIsOpen1] = useState(false);
+    const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
     const [isOpen3, setIsOpen3] = useState(false);
     const [isOpen4, setIsOpen4] = useState(false);
@@ -25,18 +25,33 @@ const Graphics: React.FC = () => {
     const [isOpen8, setIsOpen8] = useState(false);
     const [isOpen9, setIsOpen9] = useState(false);
     const [isOpen10, setIsOpen10] = useState(false);
-     const [isOpen11, setIsOpen11] = useState(false);
+    const [isOpen11, setIsOpen11] = useState(false);
     const [isOpen12, setIsOpen12] = useState(false);
-      const [isOpen13, setIsOpen13] = useState(false);
+    const [isOpen13, setIsOpen13] = useState(false);
     const [isOpen14, setIsOpen14] = useState(false);
-      const [isOpen15, setIsOpen15] = useState(false);
+    const [isOpen15, setIsOpen15] = useState(false);
     const [isOpen16, setIsOpen16] = useState(false);
-      const [isOpen17, setIsOpen17] = useState(false);
+    const [isOpen17, setIsOpen17] = useState(false);
     const [isOpen18, setIsOpen18] = useState(false);
-      const [isOpen19, setIsOpen19] = useState(false);
+    const [isOpen19, setIsOpen19] = useState(false);
     const [isOpen20, setIsOpen20] = useState(false);
 
-    if (loading) {
+    const {
+        academicVsAddiction,
+        ageClusters,
+        agePrediction,
+        averageUse,
+        averageUseAgeCluster,
+        averageUseAgeGender,
+        averageAddictionAgeGender,
+        averageAddictionSleep,
+        averageMhAge,
+        averageMhUse,
+        loading: loadingSurvey,
+        error,
+    } = useFullSurveyData();
+
+    if (loadingChart) {
         return (
             <div className="text-center p-10 text-green-700">
                 Cargando datos...
@@ -66,7 +81,7 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 🎓 Rendimiento académico vs Nivel de adicción
                             </h3>
-                            <AcademicPerformanceBaseInAddiction data={data.academic_vs_addiction} />
+                            <AcademicPerformanceBaseInAddiction data={data.academic_vs_addiction} user={academicVsAddiction}/>
                                <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
@@ -86,12 +101,14 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen12(!isOpen12)}
                                 >
-                                    {isOpen12 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen12 ? "▼" : "►"} Interpretación personal
                                 </div>
                                 {isOpen12 && (
-                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
-                                    </p>
+                                    academicVsAddiction?.description ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {academicVsAddiction.description}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
                                 )}
                             </div>
                             </div>
@@ -101,7 +118,7 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 🧠 Agrupación por edad y nivel de adicción
                             </h3>
-                            <AgeClusterAddiction data={data.age_clusters} />
+                            <AgeClusterAddiction data={data.age_clusters} user={ageClusters}/>
                             <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
@@ -122,12 +139,14 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen14(!isOpen14)}
                                 >
-                                    {isOpen14 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen14 ? "▼" : "►"} Interpretación personal
                                 </div>
                                 {isOpen14 && (
-                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
-                                    </p>
+                                    ageClusters?.comparison ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {ageClusters.comparison}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
                                 )}
                             </div>
                         </div>
@@ -136,7 +155,7 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 🔮 Predicción de edad con base en uso
                             </h3>
-                            <AgePredictionGraphic data={data.age_prediction} />
+                            <AgePredictionGraphic data={data.age_prediction} user={agePrediction}/>
                             <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
@@ -157,12 +176,14 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen16(!isOpen16)}
                                 >
-                                    {isOpen16 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen16 ? "▼" : "►"} Interpretación personal
                                 </div>
                                 {isOpen16 && (
-                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
-                                    </p>
+                                    agePrediction?.note ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {agePrediction.note}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
                                 )}
                             </div>
                         </div>
@@ -170,7 +191,7 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 🔮 Predicción de adicción con base en sueño
                             </h3>
-                            <AvgAddSleep data={data.average_addiction_sleep} />
+                            <AvgAddSleep data={data.average_addiction_sleep} user={averageAddictionSleep}/>
                                <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
@@ -191,12 +212,14 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen2(!isOpen2)}
                                 >
-                                    {isOpen2 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen2 ? "▼" : "►"} Interpretación personal
                                 </div>
                                 {isOpen2 && (
-                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
-                                    </p>
+                                    averageAddictionSleep?.note ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {averageAddictionSleep.note}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
                                 )}
                             </div>
                         </div>
@@ -204,7 +227,7 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 🔮 Relacion entre uso diario y salud mental
                             </h3>
-                            <AvgMhUse data={data.average_mh_use} />
+                            <AvgMhUse data={data.average_mh_use} user={averageMhUse}/>
                                <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
@@ -224,12 +247,14 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen4(!isOpen4)}
                                 >
-                                    {isOpen4 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen4 ? "▼" : "►"} Interpretación personal
                                 </div>
                                 {isOpen4 && (
-                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
-                                    </p>
+                                    averageMhUse?.note ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {averageMhUse.note}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
                                 )}
                             </div>
                         </div>
@@ -241,7 +266,7 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 📱 Uso promedio diario por nivel de adicción
                             </h3>
-                            <AverageUseBaseInAddiction data={data.average_use} />
+                            <AverageUseBaseInAddiction data={data.average_use} user={averageUse}/>
                                 <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
@@ -262,12 +287,14 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen18(!isOpen18)}
                                 >
-                                    {isOpen18 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen18 ? "▼" : "►"} Interpretación personal
                                 </div>
                                 {isOpen18 && (
-                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
-                                    </p>
+                                    averageUse?.note ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {averageUse.note}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
                                 )}
                             </div>
                         </div>
@@ -276,7 +303,7 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 👥 Edad vs Uso promedio agrupado
                             </h3>
-                            <AverageUseAgeCluster data={data.average_use_age_cluster} />
+                            <AverageUseAgeCluster data={data.average_use_age_cluster} user={averageUseAgeCluster}/>
                                 <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
@@ -297,12 +324,14 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen20(!isOpen20)}
                                 >
-                                    {isOpen20 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen20 ? "▼" : "►"} Interpretación personal
                                 </div>
                                 {isOpen20 && (
-                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
-                                    </p>
+                                    averageUseAgeCluster?.comparison ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {averageUseAgeCluster.comparison}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
                                 )}
                             </div>
                         </div>
@@ -311,7 +340,7 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 👥 Relacion entre uso y edad por genero
                             </h3>
-                            <AvgUseperAge_Gender data={data.average_use_age_gender} />
+                            <AvgUseperAge_Gender data={data.average_use_age_gender} user={averageUseAgeGender}/>
                                <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
@@ -332,11 +361,17 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen6(!isOpen6)}
                                 >
-                                    {isOpen6 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen6 ? "▼" : "►"} Interpretación personal
                                 </div>
                                 {isOpen6 && (
                                     <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
+                                {isOpen8 && (
+                                    averageUseAgeGender?.comparison ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {averageUseAgeGender.comparison}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
+                                )}
                                     </p>
                                 )}
                             </div>
@@ -346,8 +381,8 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 👥 Predicción de adicción con base en edad por genero
                             </h3>
-                            <AvgAddperAge_Gender data={data.average_addiction_age_gender} />
-                              <div className="text-xs w-full text-justify mt-4">
+                            <AvgAddperAge_Gender data={data.average_addiction_age_gender} user={averageAddictionAgeGender}/>
+                                <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -367,12 +402,14 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen8(!isOpen8)}
                                 >
-                                    {isOpen8 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen8 ? "▼" : "►"} Interpretación personal
                                 </div>
                                 {isOpen8 && (
-                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
-                                    </p>
+                                    averageAddictionAgeGender?.comparison ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {averageAddictionAgeGender.comparison}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
                                 )}
                             </div>
                         </div>
@@ -381,7 +418,7 @@ const Graphics: React.FC = () => {
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
                                 👥 Predicción de salud mental con base en edad
                             </h3>
-                            <AvgMhAge data={data.average_mh_age} />
+                            <AvgMhAge data={data.average_mh_age} user={averageMhAge}/>
                             <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
@@ -396,19 +433,21 @@ const Graphics: React.FC = () => {
                                     </p>
                                 )}
                             </div>
-                              <div className="text-xs w-full text-justify mt-4">
+                                <div className="text-xs w-full text-justify mt-4">
                                 <div
                                     className="font-bold text-green-700 hover:text-green-500 cursor-pointer transition-colors duration-200
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen10(!isOpen10)}
                                 >
-                                    {isOpen10 ? "▼" : "►"} Falta mapearlo
+                                    {isOpen10 ? "▼" : "►"} Interpretación personal
                                 </div>
-                                {isOpen10 && (
-                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
-                                    </p>
-                                )}
+                                    {isOpen10 && (
+                                    averageMhAge?.note ? (
+                                        <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        {averageMhAge.note}
+                                        </p>
+                                    ) : 'Para comparar tu situación, contesta la encuesta'
+                                    )}
                             </div>
                         </div>
                         </div>                      

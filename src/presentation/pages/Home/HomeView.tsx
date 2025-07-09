@@ -25,6 +25,7 @@ export interface ChartData {
 }
 
 export const useChartData = () => {
+
     const [data, setData] = useState<ChartData | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -38,16 +39,123 @@ export const useChartData = () => {
     return { data, loading };
 };
 
+export const useFullSurveyData = () => {
+    const [academicVsAddiction, setAcademicVsAddiction] = useState(null);
+    const [ageClusters, setAgeClusters] = useState(null);
+    const [agePrediction, setAgePrediction] = useState(null);
+    const [averageUse, setAverageUse] = useState(null);
+    const [averageUseAgeCluster, setAverageUseAgeCluster] = useState(null);
+    const [averageUseAgeGender, setAverageUseAgeGender] = useState(null);
+    const [averageAddictionAgeGender, setAverageAddictionAgeGender] = useState(null);
+    const [averageAddictionSleep, setAverageAddictionSleep] = useState(null);
+    const [averageMhAge, setAverageMhAge] = useState(null);
+    const [averageMhUse, setAverageMhUse] = useState(null);
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const surveyResult = localStorage.getItem("surveyResult");
+        if (!surveyResult) return;
+
+        let parsedSurvey;
+        try {
+        parsedSurvey = JSON.parse(surveyResult);
+        } catch {
+        console.error("Failed to parse surveyResult");
+        return;
+        }
+
+        if (!parsedSurvey || Object.keys(parsedSurvey).length === 0) return;
+
+        setLoading(true);
+        setError(null);
+
+        const requests = [
+            axios.post(`${API_URL}/data/academic_vs_addiction`, parsedSurvey),
+            axios.post(`${API_URL}/data/age_clusters`, parsedSurvey),
+            axios.post(`${API_URL}/data/age_prediction`, parsedSurvey),
+            axios.post(`${API_URL}/data/average_use_on_add`, parsedSurvey),
+            axios.post(`${API_URL}/data/usage_by_age_cluster`, parsedSurvey),
+            axios.post(`${API_URL}/data/usage_by_age_gender`, parsedSurvey),
+            axios.post(`${API_URL}/data/addiction_by_age_gender`, parsedSurvey),
+            axios.post(`${API_URL}/data/average_add_on_sleep`, parsedSurvey),
+            axios.post(`${API_URL}/data/average_mh_by_age`, parsedSurvey),
+            axios.post(`${API_URL}/data/average_mh_by_use`, parsedSurvey),
+        ];
+
+        axios
+        .all(requests)
+        .then(
+            axios.spread((
+            resAcademicVsAddiction,
+            resAgeClusters,
+            resAgePrediction,
+            resAverageUse,
+            resAverageUseAgeCluster,
+            resAverageUseAgeGender,
+            resAverageAddictionAgeGender,
+            resAverageAddictionSleep,
+            resAverageMhAge,
+            resAverageMhUse,
+            ) => {
+            console.log("Data:", resAgePrediction.data);
+            console.log("Data:", resAverageUse.data); 
+            console.log("Data:", resAverageUseAgeCluster.data); 
+            console.log("Data:", resAverageUseAgeGender.data); 
+            console.log("Data:", resAverageAddictionAgeGender.data);
+            console.log("Data:", resAverageAddictionSleep.data); 
+            console.log("Data:", resAverageMhAge.data); 
+            console.log("Data:", resAverageMhUse.data);  
+
+            setAcademicVsAddiction(resAcademicVsAddiction.data.academic_vs_addiction);
+            setAgeClusters(resAgeClusters.data);
+            setAgePrediction(resAgePrediction.data);
+            setAverageUse(resAverageUse.data);
+            setAverageUseAgeCluster(resAverageUseAgeCluster.data);
+            setAverageUseAgeGender(resAverageUseAgeGender.data);
+            setAverageAddictionAgeGender(resAverageAddictionAgeGender.data);
+            setAverageAddictionSleep(resAverageAddictionSleep.data);
+            setAverageMhAge(resAverageMhAge.data);
+            setAverageMhUse(resAverageMhUse.data);
+            }),
+        )
+        .catch((err) => {
+            console.error("Error fetching full survey data", err);
+            setError("Failed to fetch all data.");
+        })
+        .finally(() => {
+            
+            setLoading(false);
+        });
+    }, []);
+
+    return {
+        academicVsAddiction,
+        ageClusters,
+        agePrediction,
+        averageUse,
+        averageUseAgeCluster,
+        averageUseAgeGender,
+        averageAddictionAgeGender,
+        averageAddictionSleep,
+        averageMhAge,
+        averageMhUse,
+        loading,
+        error,
+    };
+}
+
 
 const HomeView: React.FC = () => {
 
     const [showForm, setShowForm] = useState(false);
     const { data, loading } = useChartData();
 
+    
     if (loading || !data) {
         return <div className="text-center p-10 text-gray-700">Cargando datos...</div>;
     }
-
 
     return (
         <div className="min-h-screen bg-gray-100 p-6">
