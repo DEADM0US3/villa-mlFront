@@ -25,6 +25,16 @@ const Graphics: React.FC = () => {
     const [isOpen8, setIsOpen8] = useState(false);
     const [isOpen9, setIsOpen9] = useState(false);
     const [isOpen10, setIsOpen10] = useState(false);
+     const [isOpen11, setIsOpen11] = useState(false);
+    const [isOpen12, setIsOpen12] = useState(false);
+      const [isOpen13, setIsOpen13] = useState(false);
+    const [isOpen14, setIsOpen14] = useState(false);
+      const [isOpen15, setIsOpen15] = useState(false);
+    const [isOpen16, setIsOpen16] = useState(false);
+      const [isOpen17, setIsOpen17] = useState(false);
+    const [isOpen18, setIsOpen18] = useState(false);
+      const [isOpen19, setIsOpen19] = useState(false);
+    const [isOpen20, setIsOpen20] = useState(false);
 
     if (loading) {
         return (
@@ -57,6 +67,34 @@ const Graphics: React.FC = () => {
                                 🎓 Rendimiento académico vs Nivel de adicción
                             </h3>
                             <AcademicPerformanceBaseInAddiction data={data.academic_vs_addiction} />
+                               <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen11(!isOpen11)}
+                                >
+                                    {isOpen11 ? "▼" : "►"} Proyección del rendimiento academico vs el Nivel de adicción
+                                </div>
+                                {isOpen11 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        La gráfica muestra la predicción del rendimiento academico vs el nivel de adicción. En el eje horizontal se representa los grados academicos de las personas, mientras que en el eje vertical se muestra el nivel estimado de adicción. Se observa que los niveles de adicción de high school se mantienen generalmente altos a lo largo de todos los grados mencionados.
+                                    </p>
+                                )}
+                                 <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700 hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen12(!isOpen12)}
+                                >
+                                    {isOpen12 ? "▼" : "►"} Falta mapearlo
+                                </div>
+                                {isOpen12 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
+                                    </p>
+                                )}
+                            </div>
+                            </div>
                         </div>
 
                         <div className="bg-white rounded-2xl shadow p-6">
@@ -64,6 +102,34 @@ const Graphics: React.FC = () => {
                                 🧠 Agrupación por edad y nivel de adicción
                             </h3>
                             <AgeClusterAddiction data={data.age_clusters} />
+                            <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen13(!isOpen13)}
+                                >
+                                    {isOpen13 ? "▼" : "►"} Proyección por edad y nivel de adicción
+                                </div>
+                                {isOpen13 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        La gráfica muestra la adicción por edad de las personas, en el eje horizontal, se encuentran los grupos de edades: (10-18),(19-25) y (26-100), mientras que en el eje vertical,es el nivel de adicción, que en su mayoria, las personas con que tienen más adicción, tienen la edad entre 10 a 18 años.                         
+                                    </p>
+                                )}
+                            </div>
+                               <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700 hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen14(!isOpen14)}
+                                >
+                                    {isOpen14 ? "▼" : "►"} Falta mapearlo
+                                </div>
+                                {isOpen14 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
+                                    </p>
+                                )}
+                            </div>
                         </div>
 
                         <div className="bg-white rounded-2xl shadow p-6">
@@ -71,6 +137,34 @@ const Graphics: React.FC = () => {
                                 🔮 Predicción de edad con base en uso
                             </h3>
                             <AgePredictionGraphic data={data.age_prediction} />
+                            <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen15(!isOpen15)}
+                                >
+                                    {isOpen15 ? "▼" : "►"} Proyección del edad con base a su uso.
+                                </div>
+                                {isOpen15 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        La gráfica muestra, la predicción de edad con base en uso, En el eje horizontal se representan las edades de las personas, mientras que en el eje vertical se indica el nivel de adicción estimado. Se observa que la mayor predicción de adicción se concentra en el grupo de personas con edades entre 96 y 100 años, con niveles de adicción que oscilan entre 60 y 70.
+                                    </p>
+                                )}
+                            </div>
+                               <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700 hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen16(!isOpen16)}
+                                >
+                                    {isOpen16 ? "▼" : "►"} Falta mapearlo
+                                </div>
+                                {isOpen16 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
+                                    </p>
+                                )}
+                            </div>
                         </div>
                         <div className="bg-white rounded-2xl shadow p-6">
                             <h3 className="text-xl font-semibold mb-4 text-green-700">
@@ -83,7 +177,7 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen1(!isOpen1)}
                                 >
-                                    {isOpen1 ? "▼" : "►"} Proyección del Nivel de Adicción considerando Edad y Género
+                                    {isOpen1 ? "▼" : "►"} Proyección del Nivel de Adicción con base al sueño
                                 </div>
                                 {isOpen1 && (
                                     <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
@@ -148,6 +242,34 @@ const Graphics: React.FC = () => {
                                 📱 Uso promedio diario por nivel de adicción
                             </h3>
                             <AverageUseBaseInAddiction data={data.average_use} />
+                                <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen17(!isOpen17)}
+                                >
+                                    {isOpen17 ? "▼" : "►"} Proyección del uso diario por nivel de adicción
+                                </div>
+                                {isOpen17 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                    La gráfica presenta la relación entre el uso diario y el nivel de adicción. En el eje horizontal se representan las horas de uso diario, mientras que en el eje vertical se muestra el nivel de adicción correspondiente. A medida que aumentan las horas de uso, también se incrementa el nivel de adicción, lo que sugiere una fuerte correlación entre ambos factores.
+                                    </p>
+                                )}
+                            </div>
+                               <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700 hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen18(!isOpen18)}
+                                >
+                                    {isOpen18 ? "▼" : "►"} Falta mapearlo
+                                </div>
+                                {isOpen18 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
+                                    </p>
+                                )}
+                            </div>
                         </div>
 
                         <div className="bg-white rounded-2xl shadow p-6">
@@ -155,6 +277,34 @@ const Graphics: React.FC = () => {
                                 👥 Edad vs Uso promedio agrupado
                             </h3>
                             <AverageUseAgeCluster data={data.average_use_age_cluster} />
+                                <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700  hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen19(!isOpen19)}
+                                >
+                                    {isOpen19 ? "▼" : "►"} Proyección de la edad vs el uso promedio agrupado
+                                </div>
+                                {isOpen19 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                        La gráfica muestra la predicción del uso promedio en relación con distintos rangos de edad. En el eje horizontal se encuentran tres grupos etarios: 10-18, 19-25 y 26-100 años. En el eje vertical se representan las horas promedio de uso. Esta visualización permite comparar cómo varía el tiempo de uso entre los diferentes grupos de edad, destacando posibles tendencias o comportamientos asociados a cada etapa de la vida.
+                                    </p>
+                                )}
+                            </div>
+                               <div className="text-xs w-full text-justify mt-4">
+                                <div
+                                    className="font-bold text-green-700 hover:text-green-500 cursor-pointer transition-colors duration-200
+                                    focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    onClick={() => setIsOpen20(!isOpen20)}
+                                >
+                                    {isOpen20 ? "▼" : "►"} Falta mapearlo
+                                </div>
+                                {isOpen20 && (
+                                    <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
+                                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, voluptates dolores hic id cupiditate accusamus expedita laudantium, maxime voluptate, iste animi laborum exercitationem ipsam temporibus consectetur deserunt libero eius ratione.
+                                    </p>
+                                )}
+                            </div>
                         </div>
 
                         <div className="bg-white rounded-2xl shadow p-6">
@@ -168,11 +318,12 @@ const Graphics: React.FC = () => {
                                     focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     onClick={() => setIsOpen5(!isOpen5)}
                                 >
-                                    {isOpen5 ? "▼" : "►"} Proyección del Nivel de Adicción considerando Edad y Género
+                                    {isOpen5 ? "▼" : "►"} Proyección del Nivel de Adicción considerando entre uso y  Edad por Género
                                 </div>
                                 {isOpen5 && (
                                     <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                    Esta gráfica muestra la predicción del nivel de adicción a redes sociales basada en la edad y el género de los individuos. En el eje horizontal se representan los diferentes rangos de edad, mientras que el eje vertical indica las horas diarias de uso. La visualización permite comparar cómo varía la propensión a la adicción entre hombres y mujeres a lo largo de las distintas etapas de la vida. Se observan patrones diferenciados por género, que pueden ayudar a identificar grupos de riesgo específicos para diseñar intervenciones más efectivas.                                    </p>
+                                        Esta visualización muestra el promedio de horas diarias dedicadas a redes sociales, según la edad y el género de los usuarios. Los rangos de edad se distribuyen en el eje horizontal, y el eje vertical indica el tiempo estimado de uso. Se aprecian contrastes importantes entre hombres y mujeres a lo largo de las edades, lo que puede orientar el desarrollo de estrategias diferenciadas en función de los hábitos observados.
+                                    </p>
                                 )}
                             </div>
                                <div className="text-xs w-full text-justify mt-4">
@@ -206,7 +357,8 @@ const Graphics: React.FC = () => {
                                 </div>
                                 {isOpen7 && (
                                     <p className="text-gray-500 mt-2 transition-all duration-300 ease-in-out">
-                                    Esta gráfica muestra la predicción del nivel de adicción a redes sociales basada en la edad y el género de los individuos. En el eje horizontal se representan los diferentes rangos de edad, mientras que el eje vertical indica el nivel estimado de adicción. La visualización permite comparar cómo varía la propensión a la adicción entre hombres y mujeres a lo largo de las distintas etapas de la vida. Se observan patrones diferenciados por género, que pueden ayudar a identificar grupos de riesgo específicos para diseñar intervenciones más efectivas.                                    </p>
+                                        La gráfica ilustra cómo varía el nivel estimado de adicción a redes sociales según la edad y el género. En el eje horizontal se ubican los rangos de edad, mientras que en el eje vertical se refleja la intensidad del nivel de adicción. Esta representación facilita la identificación de diferencias significativas entre hombres y mujeres en distintas etapas de la vida, lo cual resulta útil para detectar perfiles de riesgo y enfocar acciones preventivas.
+                                    </p>
                                 )}
                             </div>
                                <div className="text-xs w-full text-justify mt-4">
